@@ -8,10 +8,10 @@ pub fn part_one(input: &str) -> Option<u32> {
     let result = input
         .lines()
         .map(|line| {
-            let first = line.chars().find(|c| c.is_digit(10)).unwrap();
-            let last = line.chars().rfind(|c| c.is_digit(10)).unwrap();
+            let first = line.chars().find(|c| c.is_ascii_digit()).unwrap();
+            let last = line.chars().rfind(|c| c.is_ascii_digit()).unwrap();
 
-            u32::from_str_radix(&format!("{first}{last}"), 10).unwrap()
+            format!("{first}{last}").parse::<u32>().unwrap()
         })
         .sum();
     Some(result)
@@ -29,9 +29,7 @@ pub fn part_two(input: &str) -> Option<u32> {
             let mut search_index = line.len() - 1;
             while last.is_none() {
                 last = re.find_at(line, search_index);
-                if search_index > 0 {
-                    search_index -= 1;
-                }
+                search_index = search_index.saturating_sub(1);
             }
 
             let last = last.unwrap().as_str();
@@ -47,7 +45,7 @@ pub fn part_two(input: &str) -> Option<u32> {
 }
 
 fn parse_number_text(input: &str) -> u32 {
-    if let Ok(value) = u32::from_str_radix(input, 10) {
+    if let Ok(value) = input.parse::<u32>() {
         return value;
     }
     match input {
