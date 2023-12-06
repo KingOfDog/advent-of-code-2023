@@ -65,7 +65,6 @@ pub fn part_one(input: &str) -> Option<u32> {
                     has_symbol = has_symbol_neighbor(&grid, [x, y]);
                 }
             } else if !current_number.is_empty() {
-                println!("{current_number:?} -> {has_symbol}");
                 if has_symbol {
                     let number = current_number.iter().collect::<String>().parse().unwrap();
                     part_numbers.push(number);
