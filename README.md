@@ -16,29 +16,29 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [Day 5](https://adventofcode.com/2023/day/5) |   ⭐    |   ⭐    |
 
 <!--- benchmarking table --->
-|          Solution           | Comment                            | Time Part 1 |           Time Part 2 |
-| :-------------------------: | ---------------------------------- | ----------: | --------------------: |
-| [day01.rs](./src/bin/01.rs) | PTSD                               |      82.8μs |               481.6μs |
-| [day02.rs](./src/bin/02.rs) | not beautiful, but it works        |      58.1μs |                56.9μs |
-| [day03.rs](./src/bin/03.rs) | two dimensions are too much for me |     515.4μs |               372.6μs |
-| [day04.rs](./src/bin/04.rs) | parsing fun                                   |     127.9μs |               126.7μs |
-| [day05.rs](./src/bin/05.rs) | much code. too much code? never!   |     531.5μs | 127 000 000μs (12.7s) |
-| [day06.rs](./src/bin/06.rs) | that was surprisingly painless     |         0.285μs (285ns) |                    2500μs (2.5ms) |
-| [day07.rs](./src/bin/07.rs) |                                    |             |                       |
-| [day10.rs](./src/bin/10.rs) |                                    |             |                       |
-| [day11.rs](./src/bin/11.rs) |                                    |             |                       |
-| [day12.rs](./src/bin/12.rs) |                                    |             |                       |
-| [day13.rs](./src/bin/13.rs) |                                    |             |                       |
-| [day14.rs](./src/bin/14.rs) |                                    |             |                       |
-| [day15.rs](./src/bin/15.rs) |                                    |             |                       |
-| [day16.rs](./src/bin/16.rs) |                                    |             |                       |
-| [day17.rs](./src/bin/17.rs) |                                    |             |                       |
-| [day20.rs](./src/bin/20.rs) |                                    |             |                       |
-| [day21.rs](./src/bin/21.rs) |                                    |             |                       |
-| [day22.rs](./src/bin/22.rs) |                                    |             |                       |
-| [day23.rs](./src/bin/23.rs) |                                    |             |                       |
-| [day24.rs](./src/bin/24.rs) |                                    |             |                       |
-| [day25.rs](./src/bin/25.rs) |                                    |             |                       |
+|          Solution           | Comment                            |     Time Part 1 |           Time Part 2 |
+| :-------------------------: | ---------------------------------- | --------------: | --------------------: |
+| [day01.rs](./src/bin/01.rs) | PTSD                               |          82.8μs |               481.6μs |
+| [day02.rs](./src/bin/02.rs) | not beautiful, but it works        |          58.1μs |                56.9μs |
+| [day03.rs](./src/bin/03.rs) | two dimensions are too much for me |         515.4μs |               372.6μs |
+| [day04.rs](./src/bin/04.rs) | parsing fun                        |         127.9μs |               126.7μs |
+| [day05.rs](./src/bin/05.rs) | much code. too much code? never!   |         531.5μs | 127 000 000μs (12.7s) |
+| [day06.rs](./src/bin/06.rs) | that was surprisingly painless     | 0.285μs (285ns) |        2500μs (2.5ms) |
+| [day07.rs](./src/bin/07.rs) |                                    |                 |                       |
+| [day10.rs](./src/bin/10.rs) |                                    |                 |                       |
+| [day11.rs](./src/bin/11.rs) |                                    |                 |                       |
+| [day12.rs](./src/bin/12.rs) |                                    |                 |                       |
+| [day13.rs](./src/bin/13.rs) |                                    |                 |                       |
+| [day14.rs](./src/bin/14.rs) |                                    |                 |                       |
+| [day15.rs](./src/bin/15.rs) |                                    |                 |                       |
+| [day16.rs](./src/bin/16.rs) |                                    |                 |                       |
+| [day17.rs](./src/bin/17.rs) |                                    |                 |                       |
+| [day20.rs](./src/bin/20.rs) |                                    |                 |                       |
+| [day21.rs](./src/bin/21.rs) |                                    |                 |                       |
+| [day22.rs](./src/bin/22.rs) |                                    |                 |                       |
+| [day23.rs](./src/bin/23.rs) |                                    |                 |                       |
+| [day24.rs](./src/bin/24.rs) |                                    |                 |                       |
+| [day25.rs](./src/bin/25.rs) |                                    |                 |                       |
 
 ---
 
