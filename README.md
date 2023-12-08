@@ -9,15 +9,15 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 <!--- advent_readme_stars table --->
 ## 2023 Results
 
-| Day | Part 1 | Part 2 |
-| :---: | :---: | :---: |
-| [Day 1](https://adventofcode.com/2023/day/1) | ⭐ | ⭐ |
-| [Day 2](https://adventofcode.com/2023/day/2) | ⭐ | ⭐ |
-| [Day 3](https://adventofcode.com/2023/day/3) | ⭐ | ⭐ |
-| [Day 4](https://adventofcode.com/2023/day/4) | ⭐ | ⭐ |
-| [Day 5](https://adventofcode.com/2023/day/5) | ⭐ | ⭐ |
-| [Day 6](https://adventofcode.com/2023/day/6) | ⭐ | ⭐ |
-| [Day 7](https://adventofcode.com/2023/day/7) | ⭐ | ⭐ |
+|                     Day                      | Part 1 | Part 2 |
+| :------------------------------------------: | :----: | :----: |
+| [Day 1](https://adventofcode.com/2023/day/1) |   ⭐    |   ⭐    |
+| [Day 2](https://adventofcode.com/2023/day/2) |   ⭐    |   ⭐    |
+| [Day 3](https://adventofcode.com/2023/day/3) |   ⭐    |   ⭐    |
+| [Day 4](https://adventofcode.com/2023/day/4) |   ⭐    |   ⭐    |
+| [Day 5](https://adventofcode.com/2023/day/5) |   ⭐    |   ⭐    |
+| [Day 6](https://adventofcode.com/2023/day/6) |   ⭐    |   ⭐    |
+| [Day 7](https://adventofcode.com/2023/day/7) |   ⭐    |   ⭐    |
 <!--- advent_readme_stars table --->
 |                     Day                      | Part 1 | Part 2 |
 | :------------------------------------------: | :----: | :----: |
@@ -37,6 +37,8 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [day05.rs](./src/bin/05.rs) | much code. too much code? never!                 |         531.5μs | 12 700 000μs (12.7s) |
 | [day06.rs](./src/bin/06.rs) | that was surprisingly painless                   | 0.285μs (285ns) |      2 500μs (2.5ms) |
 | [day07.rs](./src/bin/07.rs) | just copy paste everything for part 2 #cleancode |         335.3μs |              324.1μs |
+| [day08.rs](./src/bin/08.rs) | nothing works without a bit of math              |  1100μs (1.1ms) |       4700μs (4.7ms) |
+| [day09.rs](./src/bin/09.rs) |                                                  |                 |                      |
 | [day10.rs](./src/bin/10.rs) |                                                  |                 |                      |
 | [day11.rs](./src/bin/11.rs) |                                                  |                 |                      |
 | [day12.rs](./src/bin/12.rs) |                                                  |                 |                      |
