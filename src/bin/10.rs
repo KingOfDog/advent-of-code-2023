@@ -1,6 +1,7 @@
 use std::{collections::HashSet, str::FromStr};
 
 use itertools::Itertools;
+use rayon::prelude::*;
 
 advent_of_code::solution!(10);
 
@@ -65,86 +66,113 @@ impl PipeGrid {
         }
     }
 
+    fn grid_neighbors(&self, pos: &(usize, usize)) -> Vec<(usize, usize)> {
+        let mut neighbors = vec![];
+        if pos.0 > 0 {
+            neighbors.push((pos.0 - 1, pos.1));
+            if pos.1 > 0 {
+                neighbors.push((pos.0 - 1, pos.1 - 1));
+            }
+        }
+        if pos.0 < self.grid[0].len() - 1 {
+            neighbors.push((pos.0 + 1, pos.1));
+            if pos.1 < self.grid.len() - 1 {
+                neighbors.push((pos.0 + 1, pos.1 + 1));
+            }
+        }
+        if pos.1 > 0 {
+            neighbors.push((pos.0, pos.1 - 1));
+            if pos.0 < self.grid[0].len() - 1 {
+                neighbors.push((pos.0 + 1, pos.1 - 1));
+            }
+        }
+        if pos.1 < self.grid.len() - 1 {
+            neighbors.push((pos.0, pos.1 + 1));
+            if pos.0 > 0 {
+                neighbors.push((pos.0 - 1, pos.1 + 1));
+            }
+        }
+        neighbors
+    }
+
+    fn find_pocket(
+        &self,
+        pipe_loop: Vec<(usize, usize)>,
+        pos: &(usize, usize),
+    ) -> HashSet<(usize, usize)> {
+        let mut found: HashSet<(usize, usize)> = HashSet::new();
+        let mut stack = vec![*pos];
+
+        while let Some(current) = stack.pop() {
+            let neighbors: HashSet<_> = self
+                .grid_neighbors(&current)
+                .into_iter()
+                .filter(|n| !pipe_loop.contains(n))
+                .filter(|n| !found.contains(n))
+                .collect();
+
+            found.insert(current);
+            stack.extend(neighbors);
+        }
+
+        found
+    }
+
     fn count_enclosed_tiles(&self, pipe_loop: Vec<(usize, usize)>) -> u32 {
-        let enclosed = (0..self.grid[0].len())
-            .cartesian_product(0..self.grid.len())
-            .filter(|p| !pipe_loop.contains(p))
-            .filter(|p| {
-                if p.1 == 3 {
-                    println!("{:?}", p);
+        let mut pockets: Vec<HashSet<_>> = Vec::new();
+
+        for pos in pipe_loop.iter() {
+            let mut neighbors = self.grid_neighbors(pos);
+            neighbors.retain(|n| !pipe_loop.contains(n));
+            for neighbor in neighbors {
+                if !pockets.iter().any(|p| p.contains(&neighbor)) {
+                    let pocket = self.find_pocket(pipe_loop.clone(), &neighbor);
+                    pockets.push(pocket);
                 }
+            }
+        }
 
-                let mut intersection_counts =
-                    [(0, -1), (1, 0), (0, 1), (-1, 0)].iter().map(|direction| {
-                        let mut x = p.0 as isize;
-                        let mut y = p.1 as isize;
-                        let mut count = 0;
+        let inner_pockets = pockets.iter().filter(|pocket| {
+            let c = pocket
+                .iter()
+                .filter(|p| {
+                    let mut intersection_counts =
+                        [(0, -1), (1, 0), (0, 1), (-1, 0)].iter().map(|direction| {
+                            let mut x = p.0 as isize;
+                            let mut y = p.1 as isize;
+                            let mut count = 0;
 
-                        while x >= 0
-                            && y >= 0
-                            && x < self.grid[0].len() as isize
-                            && y < self.grid.len() as isize
-                        {
-                            if pipe_loop.contains(&(x as usize, y as usize)) {
-                                count += 1;
+                            while x >= 0
+                                && y >= 0
+                                && x < self.grid[0].len() as isize
+                                && y < self.grid.len() as isize
+                            {
+                                if pipe_loop.contains(&(x as usize, y as usize)) {
+                                    count += 1;
+                                }
+
+                                x += direction.0;
+                                y += direction.1;
                             }
 
-                            x += direction.0;
-                            y += direction.1;
-                        }
+                            count
+                        });
 
-                        count
-                    });
-
-                if intersection_counts.clone().any(|c| c == 0) {
-                    if p.1 == 3 {
-                        println!("{:?}, {:?}", p, intersection_counts.clone().collect_vec());
+                    if intersection_counts.clone().any(|c| c == 0) {
+                        return false;
                     }
-                    return false;
-                }
-                if intersection_counts.clone().all(|c| c != 0) {
-                    if p.1 == 3 {
-                        println!("{:?}, {:?}", p, intersection_counts.clone().collect_vec());
-                    }
-                }
 
-                if intersection_counts.clone().all(|c| c % 2 == 1) {
-                    if p.1 == 3 {
-                        println!("{:?}, {:?}", p, intersection_counts.clone().collect_vec());
-                    }
-                }
+                    intersection_counts.any(|c| c % 2 == 1)
+                })
+                .count();
+            // what's the actual logic here?!
+            c > pocket.len() / 2
+        });
 
-                intersection_counts.any(|c| c % 2 == 1)
-            })
-            .collect_vec();
-        // .count() as u32
+        let enclosed = inner_pockets.clone().flatten().cloned().collect();
+        println!("{}", grid_to_string(&self, &pipe_loop, &enclosed));
 
-        println!("{}", grid_to_string(self, &pipe_loop, &enclosed));
-
-        let enclosed = enclosed
-            .iter()
-            .filter(|p| {
-                // check if all neighbors are either enclosed or part of loop
-                let neighbors = [
-                    (p.0 - 1, p.1),
-                    (p.0 + 1, p.1),
-                    (p.0, p.1 - 1),
-                    (p.0, p.1 + 1),
-                    (p.0 - 1, p.1 - 1),
-                    (p.0 + 1, p.1 - 1),
-                    (p.0 - 1, p.1 + 1),
-                    (p.0 + 1, p.1 + 1),
-                ];
-                neighbors
-                    .iter()
-                    .all(|n| enclosed.contains(n) || pipe_loop.contains(n))
-            })
-            .cloned()
-            .collect_vec();
-
-        println!("{}", grid_to_string(self, &pipe_loop, &enclosed));
-
-        enclosed.len() as u32
+        inner_pockets.map(|p| p.len() as u32).sum()
     }
 }
 
@@ -263,7 +291,6 @@ pub fn part_one(input: &str) -> Option<u32> {
 pub fn part_two(input: &str) -> Option<u32> {
     let grid: PipeGrid = input.parse().unwrap();
     let pipe_loop = grid.traverse_loop(grid.animal);
-    println!("{:?}", pipe_loop.len());
     let enclosed_tiles = grid.count_enclosed_tiles(pipe_loop);
     Some(enclosed_tiles)
 }
