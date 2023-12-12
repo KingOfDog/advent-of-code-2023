@@ -1,45 +1,65 @@
+use std::iter::once;
+
+use cached::proc_macro::cached;
 use itertools::Itertools;
 use rayon::prelude::*;
 
 advent_of_code::solution!(12);
 
-fn count_valid_solutions(line: &[char], groups: &[u32]) -> u32 {
-    if groups.is_empty() {
-        return 1;
-    }
-    if line.iter().all(|c| *c == '.') {
+#[cached]
+fn count_valid_solutions(line: Vec<char>, runs: Vec<usize>) -> u64 {
+    if line.is_empty() {
+        if runs.is_empty() {
+            return 1;
+        }
         return 0;
     }
-    let t = groups[0];
-    let first_spring_start = line
-        .iter()
-        .find_position(|c| **c == '#')
-        .map(|(i, _)| i)
-        .unwrap_or(line.len());
+    if runs.is_empty() {
+        if line.iter().any(|&c| c == '#') {
+            return 0;
+        }
+        return 1;
+    }
 
-    let result = line[0..(first_spring_start + t as usize).min(line.len())]
-        .par_windows(t as usize)
-        .enumerate()
-        .map(|(i, w)| {
-            let mut valid = w.iter().all(|c| *c != '.');
-            if i + (t as usize) < line.len() && line[i + t as usize] == '#' {
-                valid = false;
+    let min_remaining_len = runs.iter().sum::<usize>() + runs.len() - 1;
+    if line.len() < min_remaining_len {
+        return 0;
+    }
+
+    if line[0] == '.' {
+        return count_valid_solutions(line[1..].to_vec(), runs);
+    }
+    if line[0] == '#' {
+        let (run, leftover_runs) = runs.split_at(1);
+        let run = run[0];
+        if line[..run].iter().any(|&c| c == '.') {
+            return 0;
+        }
+        if line.len() == run {
+            if leftover_runs.is_empty() {
+                return 1;
             }
-            if valid {
-                let mut next_start = i + t as usize;
-                if next_start < line.len() {
-                    next_start += 1;
-                }
-                count_valid_solutions(&line[next_start..], &groups[1..])
-            } else {
-                0
-            }
-        })
-        .sum();
-    result
+            return 0;
+        }
+        if line.get(run) == Some(&'#') {
+            return 0;
+        }
+        return count_valid_solutions(line[run + 1..].to_vec(), leftover_runs.to_vec());
+    }
+
+    // Otherwise dunno first spot, pick
+    let left = count_valid_solutions(
+        once('#').chain(line[1..].iter().cloned()).collect_vec(),
+        runs.clone(),
+    );
+    let right = count_valid_solutions(
+        once('.').chain(line[1..].iter().cloned()).collect_vec(),
+        runs,
+    );
+    left + right
 }
 
-pub fn part_one(input: &str) -> Option<u32> {
+pub fn part_one(input: &str) -> Option<u64> {
     let result = input
         .par_lines()
         .map(|line| {
@@ -47,16 +67,16 @@ pub fn part_one(input: &str) -> Option<u32> {
             let line = line.chars().collect_vec();
             let groups = groups
                 .split(',')
-                .map(|s| s.parse::<u32>().unwrap())
+                .map(|s| s.parse::<usize>().unwrap())
                 .collect_vec();
             (line, groups)
         })
-        .map(|(line, groups)| count_valid_solutions(&line, &groups))
+        .map(|(line, groups)| count_valid_solutions(line, groups))
         .sum();
     Some(result)
 }
 
-pub fn part_two(input: &str) -> Option<u32> {
+pub fn part_two(input: &str) -> Option<u64> {
     let result = input
         .par_lines()
         .map(|line| {
@@ -69,44 +89,19 @@ pub fn part_two(input: &str) -> Option<u32> {
             line.pop();
             let groups = groups
                 .split(',')
-                .map(|s| s.parse::<u32>().unwrap())
+                .map(|s| s.parse::<usize>().unwrap())
                 .collect_vec()
                 .repeat(5);
             (line, groups)
         })
-        .map(|(line, groups)| count_valid_solutions(&line, &groups))
+        .map(|(line, groups)| count_valid_solutions(line, groups))
         .sum();
     Some(result)
 }
 
 #[cfg(test)]
 mod tests {
-    use itertools::Itertools;
-
     use super::*;
-
-    #[test]
-    fn test_num_valid_solutions() {
-        let result = count_valid_solutions(&"?###????????".chars().collect_vec(), &vec![3, 2, 1]);
-        assert_eq!(result, 10);
-
-        let result = count_valid_solutions(&"???.###".chars().collect_vec(), &vec![1, 1, 3]);
-        assert_eq!(result, 1);
-
-        let result = count_valid_solutions(&".??..??...?##.".chars().collect_vec(), &vec![1, 1, 3]);
-        assert_eq!(result, 4);
-
-        let result =
-            count_valid_solutions(&"?#?#?#?#?#?#?#?".chars().collect_vec(), &vec![1, 3, 1, 6]);
-        assert_eq!(result, 1);
-
-        let result = count_valid_solutions(&"????.#...#...".chars().collect_vec(), &vec![4, 1, 1]);
-        assert_eq!(result, 1);
-
-        let result =
-            count_valid_solutions(&"????.######..#####.".chars().collect_vec(), &vec![1, 6, 5]);
-        assert_eq!(result, 4);
-    }
 
     #[test]
     fn test_part_one() {
@@ -118,5 +113,11 @@ mod tests {
     fn test_part_two() {
         let result = part_two(&advent_of_code::template::read_file("examples", DAY));
         assert_eq!(result, Some(525152));
+    }
+
+    #[test]
+    fn test_solution_two() {
+        let result = part_two(&advent_of_code::template::read_file("inputs", DAY));
+        assert_eq!(result, Some(17391848518844));
     }
 }

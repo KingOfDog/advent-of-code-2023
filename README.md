@@ -37,7 +37,7 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [day09.rs](./src/bin/09.rs) | much faster than I expected                      |          390.4μs |              390.8μs |
 | [day10.rs](./src/bin/10.rs) |                                                  |                  |                      |
 | [day11.rs](./src/bin/11.rs) | that went surprisingly smoothly                  | 28400μs (28.4ms) |     28700μs (28.7ms) |
-| [day12.rs](./src/bin/12.rs) |                                                  |                  |                      |
+| [day12.rs](./src/bin/12.rs) | bruteforce -> doesn't work -> think -> doesn't work -> u32 overflow                                                 | 796.4μs                 |                     1500μs (1.5ms) |
 | [day13.rs](./src/bin/13.rs) |                                                  |                  |                      |
 | [day14.rs](./src/bin/14.rs) |                                                  |                  |                      |
 | [day15.rs](./src/bin/15.rs) |                                                  |                  |                      |
