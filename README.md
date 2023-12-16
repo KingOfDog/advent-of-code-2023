@@ -7,23 +7,23 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 <!--- advent_readme_stars table --->
 ## 2023 Results
 
-| Day | Part 1 | Part 2 |
-| :---: | :---: | :---: |
-| [Day 1](https://adventofcode.com/2023/day/1) | ⭐ | ⭐ |
-| [Day 2](https://adventofcode.com/2023/day/2) | ⭐ | ⭐ |
-| [Day 3](https://adventofcode.com/2023/day/3) | ⭐ | ⭐ |
-| [Day 4](https://adventofcode.com/2023/day/4) | ⭐ | ⭐ |
-| [Day 5](https://adventofcode.com/2023/day/5) | ⭐ | ⭐ |
-| [Day 6](https://adventofcode.com/2023/day/6) | ⭐ | ⭐ |
-| [Day 7](https://adventofcode.com/2023/day/7) | ⭐ | ⭐ |
-| [Day 8](https://adventofcode.com/2023/day/8) | ⭐ | ⭐ |
-| [Day 9](https://adventofcode.com/2023/day/9) | ⭐ | ⭐ |
-| [Day 10](https://adventofcode.com/2023/day/10) | ⭐ | ⭐ |
-| [Day 11](https://adventofcode.com/2023/day/11) | ⭐ | ⭐ |
-| [Day 12](https://adventofcode.com/2023/day/12) | ⭐ | ⭐ |
-| [Day 13](https://adventofcode.com/2023/day/13) | ⭐ | ⭐ |
-| [Day 14](https://adventofcode.com/2023/day/14) | ⭐ | ⭐ |
-| [Day 15](https://adventofcode.com/2023/day/15) | ⭐ | ⭐ |
+|                      Day                       | Part 1 | Part 2 |
+| :--------------------------------------------: | :----: | :----: |
+|  [Day 1](https://adventofcode.com/2023/day/1)  |   ⭐    |   ⭐    |
+|  [Day 2](https://adventofcode.com/2023/day/2)  |   ⭐    |   ⭐    |
+|  [Day 3](https://adventofcode.com/2023/day/3)  |   ⭐    |   ⭐    |
+|  [Day 4](https://adventofcode.com/2023/day/4)  |   ⭐    |   ⭐    |
+|  [Day 5](https://adventofcode.com/2023/day/5)  |   ⭐    |   ⭐    |
+|  [Day 6](https://adventofcode.com/2023/day/6)  |   ⭐    |   ⭐    |
+|  [Day 7](https://adventofcode.com/2023/day/7)  |   ⭐    |   ⭐    |
+|  [Day 8](https://adventofcode.com/2023/day/8)  |   ⭐    |   ⭐    |
+|  [Day 9](https://adventofcode.com/2023/day/9)  |   ⭐    |   ⭐    |
+| [Day 10](https://adventofcode.com/2023/day/10) |   ⭐    |   ⭐    |
+| [Day 11](https://adventofcode.com/2023/day/11) |   ⭐    |   ⭐    |
+| [Day 12](https://adventofcode.com/2023/day/12) |   ⭐    |   ⭐    |
+| [Day 13](https://adventofcode.com/2023/day/13) |   ⭐    |   ⭐    |
+| [Day 14](https://adventofcode.com/2023/day/14) |   ⭐    |   ⭐    |
+| [Day 15](https://adventofcode.com/2023/day/15) |   ⭐    |   ⭐    |
 <!--- advent_readme_stars table --->
 
 <!--- benchmarking table --->
@@ -44,7 +44,7 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [day13.rs](./src/bin/13.rs) | relatively straightforward cmopared to the last few days            |          287.6μs |              288.5μs |
 | [day14.rs](./src/bin/14.rs) | meh                                                                 |           56.8μs |     21000μs (21.0ms) |
 | [day15.rs](./src/bin/15.rs) | that was surprisingly elegant                                       |           60.1μs |              231.0μs |
-| [day16.rs](./src/bin/16.rs) |                                                                     |                  |                      |
+| [day16.rs](./src/bin/16.rs) | not the most beautiful code, but it works! #parallelization         |   1700μs (1.7ms) |     55200μs (55.2ms) |
 | [day17.rs](./src/bin/17.rs) |                                                                     |                  |                      |
 | [day20.rs](./src/bin/20.rs) |                                                                     |                  |                      |
 | [day21.rs](./src/bin/21.rs) |                                                                     |                  |                      |
