@@ -49,6 +49,8 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [day15.rs](./src/bin/15.rs) | that was surprisingly elegant                                       |           60.1μs |              231.0μs |
 | [day16.rs](./src/bin/16.rs) | not the most beautiful code, but it works! #parallelization         |   1700μs (1.7ms) |     55200μs (55.2ms) |
 | [day17.rs](./src/bin/17.rs) | maybe I should stop using μs as the default unit                    |         125300μs |             396800μs |
+| [day18.rs](./src/bin/18.rs) |                                                                     |                  |                      |
+| [day19.rs](./src/bin/19.rs) | worked pretty well                                                  | 70300μs (70.3ms) |     69400μs (69.4ms) |
 | [day20.rs](./src/bin/20.rs) |                                                                     |                  |                      |
 | [day21.rs](./src/bin/21.rs) |                                                                     |                  |                      |
 | [day22.rs](./src/bin/22.rs) |                                                                     |                  |                      |
