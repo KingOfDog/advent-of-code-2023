@@ -17,6 +17,7 @@ test_lib = []
 cached = "0.46.1"
 custom_derive = "0.1.7"
 enum_derive = "0.1.7"
+geo = "0.27.0"
 indexmap = "2.1.0"
 iterchunks = "0.5.0"
 itermore = "0.6.0"
