@@ -1,208 +1,119 @@
 use core::panic;
 
 use geo::Coord;
-use itertools::Itertools;
-use rayon::prelude::*;
-use std::str::FromStr;
 
 advent_of_code::solution!(18);
 
-#[derive(Debug)]
-struct LineSegment {
-    start: Coord<i64>,
-    end: Coord<i64>,
-    direction: Direction,
+struct Grid {
+    nodes: Vec<Coord<i64>>,
+    boundary_count: usize,
 }
 
-impl LineSegment {
-    fn min_x(&self) -> i64 {
-        self.start.x.min(self.end.x)
-    }
-
-    fn max_x(&self) -> i64 {
-        self.start.x.max(self.end.x)
-    }
-
-    fn min_y(&self) -> i64 {
-        self.start.y.min(self.end.y)
-    }
-
-    fn max_y(&self) -> i64 {
-        self.start.y.max(self.end.y)
+fn parse_direction(dir: &str, steps: i64) -> Coord<i64> {
+    match dir {
+        "R" => Coord { x: steps, y: 0 },
+        "U" => Coord { x: 0, y: steps },
+        "L" => Coord { x: -steps, y: 0 },
+        "D" => Coord { x: 0, y: -steps },
+        _ => panic!("can't find dir!"),
     }
 }
 
-
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
-enum Direction {
-    Right,
-    Down,
-    Left,
-    Up,
+fn parse_direction_from_number(dir: usize, steps: i64) -> Coord<i64> {
+    match dir {
+        0 => Coord { x: steps, y: 0 },
+        1 => Coord { x: 0, y: steps },
+        2 => Coord { x: -steps, y: 0 },
+        3 => Coord { x: 0, y: -steps },
+        _ => panic!("can't find dir!"),
+    }
 }
 
-impl FromStr for Direction {
-    type Err = ();
+impl Grid {
+    fn new_part_1(contents: &str) -> Self {
+        let mut nodes = vec![];
 
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s {
-            "U" => Ok(Direction::Up),
-            "D" => Ok(Direction::Down),
-            "L" => Ok(Direction::Left),
-            "R" => Ok(Direction::Right),
-            _ => Err(()),
+        let lines = contents.lines();
+        let mut cur = Coord { x: 0, y: 0 };
+        let mut boundary_count: usize = 0;
+
+        for line in lines {
+            let parts: Vec<&str> = line.split_whitespace().collect();
+
+            let dir = parts[0].to_owned();
+            let steps = parts[1].parse::<i64>().expect("steps are a number");
+
+            let inc = parse_direction(&dir, steps);
+
+            boundary_count += steps as usize;
+            cur = cur + inc;
+            nodes.push(cur);
+        }
+
+        Self {
+            nodes,
+            boundary_count,
         }
     }
-}
 
-fn construct_edge_1(input: &str) -> Vec<LineSegment> {
-    let mut current = Coord { x: 0, y: 0 };
-    input
-        .lines()
-        .map(|line| {
-            let (direction, distance, _) = line.split_whitespace().collect_tuple().unwrap();
-            let distance = distance.parse::<i64>().unwrap();
+    fn new_part_2(contents: &str) -> Self {
+        let mut nodes = vec![];
 
-            let direction = direction.parse().unwrap();
+        let lines = contents.lines();
+        let mut cur = Coord { x: 0, y: 0 };
+        let mut boundary_count: usize = 0;
 
-            let next = match direction {
-                Direction::Up => Coord {
-                    x: current.x,
-                    y: current.y - distance,
-                },
-                Direction::Down => Coord {
-                    x: current.x,
-                    y: current.y + distance,
-                },
-                Direction::Left => Coord {
-                    x: current.x - distance,
-                    y: current.y,
-                },
-                Direction::Right => Coord {
-                    x: current.x + distance,
-                    y: current.y,
-                },
-            };
+        for line in lines {
+            let parts: Vec<&str> = line.split_whitespace().collect();
 
-            let line = LineSegment {
-                start: current,
-                end: next,
-                direction: direction,
-            };
-            current = next;
-            line
-        })
-        .collect()
-}
+            let color = parts[2];
+            let dir = usize::from_str_radix(&color[7..8], 16).expect("direction to be a number");
+            let steps =
+                usize::from_str_radix(&color[2..7], 16).expect("steps to be a number") as i64;
 
-fn construct_edge_2(input: &str) -> Vec<LineSegment> {
-    let mut current = Coord { x: 0, y: 0 };
-    input
-        .lines()
-        .map(|line| {
-            let (_, _, hex) = line.split_whitespace().collect_tuple().unwrap();
-            let distance = i64::from_str_radix(&hex[2..7], 16).unwrap();
+            let inc = parse_direction_from_number(dir, steps);
 
-            let direction = match &hex[7..8] {
-                "0" => Direction::Right,
-                "1" => Direction::Down,
-                "2" => Direction::Left,
-                "3" => Direction::Up,
-                _ => panic!("invalid direction"),
-            };
+            boundary_count += steps as usize;
+            cur = cur + inc;
+            nodes.push(cur);
+        }
 
-            let next = match direction {
-                Direction::Up => Coord {
-                    x: current.x,
-                    y: current.y - distance,
-                },
-                Direction::Down => Coord {
-                    x: current.x,
-                    y: current.y + distance,
-                },
-                Direction::Left => Coord {
-                    x: current.x - distance,
-                    y: current.y,
-                },
-                Direction::Right => Coord {
-                    x: current.x + distance,
-                    y: current.y,
-                },
-            };
+        Self {
+            nodes,
+            boundary_count,
+        }
+    }
 
-            let line = LineSegment {
-                start: current,
-                end: next,
-                direction: direction,
-            };
-            current = next;
-            line
-        })
-        .collect()
-}
+    // shoelace formula
+    fn area(&self) -> i64 {
+        let mut points = self.nodes.clone();
 
-fn measure_inner_area(lines: &[LineSegment]) -> u64 {
-    let min_x = lines.iter().map(|line| line.min_x()).min().unwrap();
-    let min_y = lines.iter().map(|line| line.min_y()).min().unwrap();
-    let max_x = lines.iter().map(|line| line.max_x()).max().unwrap();
-    let max_y = lines.iter().map(|line| line.max_y()).max().unwrap();
+        // make sure it's closed
+        points.push(points[0]);
 
-    println!("{}", max_y - min_y);
+        // 2A = (x1 * y2 - y1 * x2) + (x2 * y3...)...
 
-    let result = (min_y..=max_y)
-        .par_bridge()
-        .map(|y| {
-            println!("{:?}", y);
-            let mut inside = false;
-            let mut inside_count = 0;
-            let mut prev_vert_line: Option<&LineSegment> = None;
-            for x in min_x..=max_x {
-                let line = lines.iter().find(|line| {
-                    x >= line.min_x()
-                        && x <= line.max_x()
-                        && y >= line.min_y()
-                        && y <= line.max_y()
-                        && line.start.y != line.end.y
-                });
-                let find = lines.iter().find(|line| {
-                    x >= line.min_x() && x <= line.max_x() && y == line.min_y() && y == line.max_y()
-                });
-                if inside || line.is_some() || find.is_some() {
-                    inside_count += 1;
-                }
+        let sum: i64 = points
+            .windows(2)
+            .map(|p| p[0].x * p[1].y - p[0].y * p[1].x)
+            .sum();
 
-                if let Some(line) = line {
-                    if let Some(prev_line) = prev_vert_line {
-                        if find.is_some() {
-                            if prev_line.direction == line.direction {
-                                inside = !inside;
-                            }
-                        } else {
-                            inside = !inside;
-                        }
-                    } else if find.is_none() {
-                        inside = !inside;
-                    }
-                    prev_vert_line = Some(line);
-                }
-            }
-            inside_count
-        })
-        .sum();
+        let boundary_count = self.boundary_count as i64;
 
-    result
+        sum.abs() / 2 + boundary_count / 2 + 1
+    }
 }
 
 pub fn part_one(input: &str) -> Option<u64> {
-    let lines = construct_edge_1(input);
-
-    Some(measure_inner_area(&lines))
+    let grid = Grid::new_part_1(input);
+    let result = grid.area();
+    Some(result as u64)
 }
 
 pub fn part_two(input: &str) -> Option<u64> {
-    let lines = construct_edge_2(input);
-
-    Some(measure_inner_area(&lines))
+    let grid = Grid::new_part_2(input);
+    let result = grid.area();
+    Some(result as u64)
 }
 
 #[cfg(test)]
@@ -225,5 +136,11 @@ mod tests {
     fn test_part_two() {
         let result = part_two(&advent_of_code::template::read_file("examples", DAY));
         assert_eq!(result, Some(952408144115));
+    }
+
+    #[test]
+    fn test_solution_two() {
+        let result = part_two(&advent_of_code::template::read_file("inputs", DAY));
+        assert_eq!(result, Some(48020869073824));
     }
 }
