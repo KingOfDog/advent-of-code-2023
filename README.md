@@ -58,7 +58,7 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [day19.rs](./src/bin/19.rs) | worked pretty well                                                  | 70300μs (70.3ms) |     69400μs (69.4ms) |
 | [day20.rs](./src/bin/20.rs) | part 2 relies on the structure of the input always being the same   | 12700μs (12.7ms) |     26600μs (26.6ms) |
 | [day21.rs](./src/bin/21.rs) |                                                                     |                  |                      |
-| [day22.rs](./src/bin/22.rs) |                                                                     |                  |                      |
+| [day22.rs](./src/bin/22.rs) | who needs optimization anyway                                       | 7000000μs (7.0s) |     7300000ms (7.3s) |
 | [day23.rs](./src/bin/23.rs) |                                                                     |                  |                      |
 | [day24.rs](./src/bin/24.rs) |                                                                     |                  |                      |
 | [day25.rs](./src/bin/25.rs) |                                                                     |                  |                      |
