@@ -1,41 +1,14 @@
 use core::panic;
 use std::str::FromStr;
 
-use cgmath::{vec2, vec3, Vector2, Vector3};
+use cgmath::{vec3, Vector3};
 use itertools::Itertools;
-use z3::ast::Ast;
+use z3::ast::{Ast, Int};
 
 advent_of_code::solution!(24);
 
-// struct Hailstone {
-//     pos: Vector3<f64>,
-//     vel: Vector3<f64>,
-// }
-
-// fn check_xy_collision(a: &Hailstone, b: &Hailstone) -> Option<Vector2<f64>> {
-//     let dx = b.pos.x - a.pos.x;
-//     let dy = b.pos.y - a.pos.y;
-//     let det = a.vel.x * b.vel.y - b.vel.x * a.vel.y;
-//     let u = (dy * b.vel.x - dx * b.vel.y) / det;
-//     let v = (dy * a.vel.x - dx * a.vel.y) / det;
-//     if u < 0. || v < 0. {
-//         return None;
-//     }
-
-//     let m0 = a.vel.y / a.vel.x;
-//     let m1 = b.vel.y / b.vel.x;
-//     let b0 = a.pos.y - m0 * a.pos.x;
-//     let b1 = b.pos.y - m1 * b.pos.x;
-//     let x = (b1 - b0) / (m0 - m1);
-//     let y = m0 * x + b0;
-
-//     Some(vec2(x, y))
-// }
-
 struct Hailstone {
-    // pos: (T, T, T),
     pos: Vector3<i128>,
-    // vel: (T, T, T),
     vel: Vector3<i128>,
 }
 
@@ -141,39 +114,38 @@ pub fn part_two(input: &str) -> Option<u64> {
 
     let mut cfg = z3::Config::new();
     cfg.set_proof_generation(true);
-    let context = z3::Context::new(&cfg);
-    let solver = z3::Solver::new(&context);
+    let ctx = z3::Context::new(&cfg);
+    let solver = z3::Solver::new(&ctx);
 
-    let x = z3::ast::Int::new_const(&context, "x");
-    let y = z3::ast::Int::new_const(&context, "y");
-    let z = z3::ast::Int::new_const(&context, "z");
-    let vx = z3::ast::Int::new_const(&context, "vx");
-    let vy = z3::ast::Int::new_const(&context, "vy");
-    let vz = z3::ast::Int::new_const(&context, "vz");
+    let x = Int::new_const(&ctx, "x");
+    let y = Int::new_const(&ctx, "y");
+    let z = Int::new_const(&ctx, "z");
+    let vx = Int::new_const(&ctx, "vx");
+    let vy = Int::new_const(&ctx, "vy");
+    let vz = Int::new_const(&ctx, "vz");
 
-    for (i, hs) in hailstones.iter().take(3).enumerate() {
-        let a = z3::ast::Int::from_i64(&context, hs.pos.x as i64);
-        let va = z3::ast::Int::from_i64(&context, hs.vel.x as i64);
-        let b = z3::ast::Int::from_i64(&context, hs.pos.y as i64);
-        let vb = z3::ast::Int::from_i64(&context, hs.vel.y as i64);
-        let c = z3::ast::Int::from_i64(&context, hs.pos.z as i64);
-        let vc = z3::ast::Int::from_i64(&context, hs.vel.z as i64);
+    for (i, hs) in hailstones.iter().enumerate() {
+        let a = Int::from_i64(&ctx, hs.pos.x as i64);
+        let va = Int::from_i64(&ctx, hs.vel.x as i64);
+        let b = Int::from_i64(&ctx, hs.pos.y as i64);
+        let vb = Int::from_i64(&ctx, hs.vel.y as i64);
+        let c = Int::from_i64(&ctx, hs.pos.z as i64);
+        let vc = Int::from_i64(&ctx, hs.vel.z as i64);
 
-        let t = z3::ast::Int::new_const(&context, format!("t{i}"));
-        solver.assert(&t.gt(&z3::ast::Int::from_i64(&context, 0)));
+        let t = Int::new_const(&ctx, format!("t{i}"));
+        solver.assert(&t.gt(&Int::from_i64(&ctx, 0)));
         solver.assert(&(x.clone() + vx.clone() * t.clone())._eq(&(a + va * t.clone())));
         solver.assert(&(y.clone() + vy.clone() * t.clone())._eq(&(b + vb * t.clone())));
         solver.assert(&(z.clone() + vz.clone() * t.clone())._eq(&(c + vc * t.clone())));
     }
 
-    println!("Running...");
-    if solver.check() == z3::SatResult::Sat {
-        let Some(m) = solver.get_model() else {
-            panic!("failed to solve model")
-        };
-        return m.eval(&(x + y + z), true).unwrap().as_u64();
-    }
-    panic!("failed to solve model")
+    assert_eq!(solver.check(), z3::SatResult::Sat);
+
+    let Some(m) = solver.get_model() else {
+        panic!("failed to solve model")
+    };
+    let result = m.eval(&(x + y + z), true).unwrap().as_u64();
+    result
 }
 
 #[cfg(test)]
@@ -196,5 +168,11 @@ mod tests {
     fn test_part_two() {
         let result = part_two(&advent_of_code::template::read_file("examples", DAY));
         assert_eq!(result, Some(47));
+    }
+
+    #[test]
+    fn test_solution_two() {
+        let result = part_two(&advent_of_code::template::read_file("inputs", DAY));
+        assert_eq!(result, Some(1025019997186820));
     }
 }
