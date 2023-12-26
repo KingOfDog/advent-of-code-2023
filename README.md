@@ -7,62 +7,62 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 <!--- advent_readme_stars table --->
 ## 2023 Results
 
-| Day | Part 1 | Part 2 |
-| :---: | :---: | :---: |
-| [Day 1](https://adventofcode.com/2023/day/1) | ⭐ | ⭐ |
-| [Day 2](https://adventofcode.com/2023/day/2) | ⭐ | ⭐ |
-| [Day 3](https://adventofcode.com/2023/day/3) | ⭐ | ⭐ |
-| [Day 4](https://adventofcode.com/2023/day/4) | ⭐ | ⭐ |
-| [Day 5](https://adventofcode.com/2023/day/5) | ⭐ | ⭐ |
-| [Day 6](https://adventofcode.com/2023/day/6) | ⭐ | ⭐ |
-| [Day 7](https://adventofcode.com/2023/day/7) | ⭐ | ⭐ |
-| [Day 8](https://adventofcode.com/2023/day/8) | ⭐ | ⭐ |
-| [Day 9](https://adventofcode.com/2023/day/9) | ⭐ | ⭐ |
-| [Day 10](https://adventofcode.com/2023/day/10) | ⭐ | ⭐ |
-| [Day 11](https://adventofcode.com/2023/day/11) | ⭐ | ⭐ |
-| [Day 12](https://adventofcode.com/2023/day/12) | ⭐ | ⭐ |
-| [Day 13](https://adventofcode.com/2023/day/13) | ⭐ | ⭐ |
-| [Day 14](https://adventofcode.com/2023/day/14) | ⭐ | ⭐ |
-| [Day 15](https://adventofcode.com/2023/day/15) | ⭐ | ⭐ |
-| [Day 16](https://adventofcode.com/2023/day/16) | ⭐ | ⭐ |
-| [Day 17](https://adventofcode.com/2023/day/17) | ⭐ | ⭐ |
-| [Day 18](https://adventofcode.com/2023/day/18) | ⭐ | ⭐ |
-| [Day 19](https://adventofcode.com/2023/day/19) | ⭐ | ⭐ |
-| [Day 20](https://adventofcode.com/2023/day/20) | ⭐ | ⭐ |
-| [Day 21](https://adventofcode.com/2023/day/21) | ⭐ | ⭐ |
-| [Day 22](https://adventofcode.com/2023/day/22) | ⭐ | ⭐ |
-| [Day 23](https://adventofcode.com/2023/day/23) | ⭐ | ⭐ |
-| [Day 24](https://adventofcode.com/2023/day/24) | ⭐ | ⭐ |
+|                      Day                       | Part 1 | Part 2 |
+| :--------------------------------------------: | :----: | :----: |
+|  [Day 1](https://adventofcode.com/2023/day/1)  |   ⭐    |   ⭐    |
+|  [Day 2](https://adventofcode.com/2023/day/2)  |   ⭐    |   ⭐    |
+|  [Day 3](https://adventofcode.com/2023/day/3)  |   ⭐    |   ⭐    |
+|  [Day 4](https://adventofcode.com/2023/day/4)  |   ⭐    |   ⭐    |
+|  [Day 5](https://adventofcode.com/2023/day/5)  |   ⭐    |   ⭐    |
+|  [Day 6](https://adventofcode.com/2023/day/6)  |   ⭐    |   ⭐    |
+|  [Day 7](https://adventofcode.com/2023/day/7)  |   ⭐    |   ⭐    |
+|  [Day 8](https://adventofcode.com/2023/day/8)  |   ⭐    |   ⭐    |
+|  [Day 9](https://adventofcode.com/2023/day/9)  |   ⭐    |   ⭐    |
+| [Day 10](https://adventofcode.com/2023/day/10) |   ⭐    |   ⭐    |
+| [Day 11](https://adventofcode.com/2023/day/11) |   ⭐    |   ⭐    |
+| [Day 12](https://adventofcode.com/2023/day/12) |   ⭐    |   ⭐    |
+| [Day 13](https://adventofcode.com/2023/day/13) |   ⭐    |   ⭐    |
+| [Day 14](https://adventofcode.com/2023/day/14) |   ⭐    |   ⭐    |
+| [Day 15](https://adventofcode.com/2023/day/15) |   ⭐    |   ⭐    |
+| [Day 16](https://adventofcode.com/2023/day/16) |   ⭐    |   ⭐    |
+| [Day 17](https://adventofcode.com/2023/day/17) |   ⭐    |   ⭐    |
+| [Day 18](https://adventofcode.com/2023/day/18) |   ⭐    |   ⭐    |
+| [Day 19](https://adventofcode.com/2023/day/19) |   ⭐    |   ⭐    |
+| [Day 20](https://adventofcode.com/2023/day/20) |   ⭐    |   ⭐    |
+| [Day 21](https://adventofcode.com/2023/day/21) |   ⭐    |   ⭐    |
+| [Day 22](https://adventofcode.com/2023/day/22) |   ⭐    |   ⭐    |
+| [Day 23](https://adventofcode.com/2023/day/23) |   ⭐    |   ⭐    |
+| [Day 24](https://adventofcode.com/2023/day/24) |   ⭐    |   ⭐    |
 <!--- advent_readme_stars table --->
 
 <!--- benchmarking table --->
-|          Solution           | Comment                                                             |      Time Part 1 |          Time Part 2 |
-| :-------------------------: | ------------------------------------------------------------------- | ---------------: | -------------------: |
-| [day01.rs](./src/bin/01.rs) | PTSD                                                                |           82.8μs |              481.6μs |
-| [day02.rs](./src/bin/02.rs) | not beautiful, but it works                                         |           58.1μs |               56.9μs |
-| [day03.rs](./src/bin/03.rs) | two dimensions are too much for me                                  |          515.4μs |              372.6μs |
-| [day04.rs](./src/bin/04.rs) | parsing fun                                                         |          127.9μs |              126.7μs |
-| [day05.rs](./src/bin/05.rs) | much code. too much code? never!                                    |          531.5μs | 12 700 000μs (12.7s) |
-| [day06.rs](./src/bin/06.rs) | that was surprisingly painless                                      |  0.285μs (285ns) |      2 500μs (2.5ms) |
-| [day07.rs](./src/bin/07.rs) | just copy paste everything for part 2 #cleancode                    |          335.3μs |              324.1μs |
-| [day08.rs](./src/bin/08.rs) | nothing works without a bit of math                                 |   1100μs (1.1ms) |       4700μs (4.7ms) |
-| [day09.rs](./src/bin/09.rs) | much faster than I expected                                         |          390.4μs |              390.8μs |
-| [day10.rs](./src/bin/10.rs) |                                                                     |                  |                      |
-| [day11.rs](./src/bin/11.rs) | that went surprisingly smoothly                                     | 28400μs (28.4ms) |     28700μs (28.7ms) |
-| [day12.rs](./src/bin/12.rs) | bruteforce -> doesn't work -> think -> doesn't work -> u32 overflow |          796.4μs |       1500μs (1.5ms) |
-| [day13.rs](./src/bin/13.rs) | relatively straightforward cmopared to the last few days            |          287.6μs |              288.5μs |
-| [day14.rs](./src/bin/14.rs) | meh                                                                 |           56.8μs |     21000μs (21.0ms) |
-| [day15.rs](./src/bin/15.rs) | that was surprisingly elegant                                       |           60.1μs |              231.0μs |
-| [day16.rs](./src/bin/16.rs) | not the most beautiful code, but it works! #parallelization         |   1700μs (1.7ms) |     55200μs (55.2ms) |
-| [day17.rs](./src/bin/17.rs) | maybe I should stop using μs as the default unit                    |         125300μs |             396800μs |
-| [day18.rs](./src/bin/18.rs) | it might have helped to search for a simple formular early on...    |           69.8μs |               52.0μs |
-| [day19.rs](./src/bin/19.rs) | worked pretty well                                                  | 70300μs (70.3ms) |     69400μs (69.4ms) |
-| [day20.rs](./src/bin/20.rs) | part 2 relies on the structure of the input always being the same   | 12700μs (12.7ms) |     26600μs (26.6ms) |
-| [day21.rs](./src/bin/21.rs) |                                                                     |                  |                      |
-| [day22.rs](./src/bin/22.rs) | who needs optimization anyway                                       | 7000000μs (7.0s) |     7300000ms (7.3s) |
-| [day23.rs](./src/bin/23.rs) |                                                                     |                  |                      |
-| [day24.rs](./src/bin/24.rs) |                                                                     |                  |                      |
-| [day25.rs](./src/bin/25.rs) |                                                                     |                  |                      |
+|          Solution           | Comment                                                             |        Time Part 1 |          Time Part 2 |
+| :-------------------------: | ------------------------------------------------------------------- | -----------------: | -------------------: |
+| [day01.rs](./src/bin/01.rs) | PTSD                                                                |             82.8μs |              481.6μs |
+| [day02.rs](./src/bin/02.rs) | not beautiful, but it works                                         |             58.1μs |               56.9μs |
+| [day03.rs](./src/bin/03.rs) | two dimensions are too much for me                                  |            515.4μs |              372.6μs |
+| [day04.rs](./src/bin/04.rs) | parsing fun                                                         |            127.9μs |              126.7μs |
+| [day05.rs](./src/bin/05.rs) | much code. too much code? never!                                    |            531.5μs | 12 700 000μs (12.7s) |
+| [day06.rs](./src/bin/06.rs) | that was surprisingly painless                                      |    0.285μs (285ns) |      2 500μs (2.5ms) |
+| [day07.rs](./src/bin/07.rs) | just copy paste everything for part 2 #cleancode                    |            335.3μs |              324.1μs |
+| [day08.rs](./src/bin/08.rs) | nothing works without a bit of math                                 |     1100μs (1.1ms) |       4700μs (4.7ms) |
+| [day09.rs](./src/bin/09.rs) | much faster than I expected                                         |            390.4μs |              390.8μs |
+| [day10.rs](./src/bin/10.rs) |                                                                     |                    |                      |
+| [day11.rs](./src/bin/11.rs) | that went surprisingly smoothly                                     |   28400μs (28.4ms) |     28700μs (28.7ms) |
+| [day12.rs](./src/bin/12.rs) | bruteforce -> doesn't work -> think -> doesn't work -> u32 overflow |            796.4μs |       1500μs (1.5ms) |
+| [day13.rs](./src/bin/13.rs) | relatively straightforward cmopared to the last few days            |            287.6μs |              288.5μs |
+| [day14.rs](./src/bin/14.rs) | meh                                                                 |             56.8μs |     21000μs (21.0ms) |
+| [day15.rs](./src/bin/15.rs) | that was surprisingly elegant                                       |             60.1μs |              231.0μs |
+| [day16.rs](./src/bin/16.rs) | not the most beautiful code, but it works! #parallelization         |     1700μs (1.7ms) |     55200μs (55.2ms) |
+| [day17.rs](./src/bin/17.rs) | maybe I should stop using μs as the default unit                    |           125300μs |             396800μs |
+| [day18.rs](./src/bin/18.rs) | it might have helped to search for a simple formular early on...    |             69.8μs |               52.0μs |
+| [day19.rs](./src/bin/19.rs) | worked pretty well                                                  |   70300μs (70.3ms) |     69400μs (69.4ms) |
+| [day20.rs](./src/bin/20.rs) | part 2 relies on the structure of the input always being the same   |   12700μs (12.7ms) |     26600μs (26.6ms) |
+| [day21.rs](./src/bin/21.rs) |                                                                     |                    |                      |
+| [day22.rs](./src/bin/22.rs) | who needs optimization anyway                                       |   7000000μs (7.0s) |     7300000ms (7.3s) |
+| [day23.rs](./src/bin/23.rs) | it's getting worse and worse                                        |   2100000μs (2.1s) |     1500000μs (1.5s) |
+| [day24.rs](./src/bin/24.rs) |                                                                     |                    |                      |
+| [day25.rs](./src/bin/25.rs) | too much graph theory                                               | 222300μs (222.3ms) |                    / |
 
 ---
 
